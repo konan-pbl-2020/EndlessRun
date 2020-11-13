@@ -20,6 +20,13 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button manualButton = (Button)findViewById(R.id.manual);
+        manualButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this,ManualActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

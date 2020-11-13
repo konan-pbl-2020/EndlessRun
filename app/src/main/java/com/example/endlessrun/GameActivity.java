@@ -78,7 +78,7 @@ public class GameActivity extends AppCompatActivity implements Runnable {
                 } else {
                     chara.setTranslationX(px - 100);
                 }
-            }*/
+            }s*/
         });
 
         ScheduledThreadPoolExecutor t = new ScheduledThreadPoolExecutor(1);

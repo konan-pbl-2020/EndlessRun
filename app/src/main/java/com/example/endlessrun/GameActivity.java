@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -25,42 +27,77 @@ public class GameActivity extends AppCompatActivity implements Runnable {
     public GameActivity() {
     }
 
-    public GameActivity(Bitmap bitmap, int left, int top) {
-        int right = left + bitmap.getWidth();
-        int bottom = top + bitmap.getHeight();
-        this.rect = new Rect(left, top, right, bottom);
-        this.bitmap = bitmap;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         ImageButton rightButton = (ImageButton) findViewById(R.id.RightButton);
-        rightButton.setOnClickListener(new View.OnClickListener() {
+        rightButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 ImageView chara = (ImageView) findViewById(R.id.chara);
-                float x = chara.getTranslationX();
-                chara.setTranslationX(x + 15);
+                float px = chara.getTranslationX();
+                if( px > 1000 ){
+                    chara.setTranslationX(-950);
+                } else {
+                    chara.setTranslationX(px + 10);
+                }
+                return false;
             }
+
+            /*public void onClick(View v) {
+                ImageView chara = (ImageView) findViewById(R.id.chara);
+                float px = chara.getTranslationX();
+                if( px > 1000 ){
+                    chara.setTranslationX(-950);
+                } else {
+                    chara.setTranslationX(px + 100);
+                }
+            }*/
         });
+
+        ImageButton leftButton = (ImageButton) findViewById(R.id.LeftButton);
+        leftButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ImageView chara = (ImageView) findViewById(R.id.chara);
+                float px = chara.getTranslationX();
+                if( px < -1000 ){
+                    chara.setTranslationX(950);
+                } else {
+                    chara.setTranslationX(px - 10);
+                }
+                return false;
+            }
+            /*public void onClick(View v) {
+                ImageView chara = (ImageView) findViewById(R.id.chara);
+                float px = chara.getTranslationX();
+                if( px < -1000 ){
+                    chara.setTranslationX(950);
+                } else {
+                    chara.setTranslationX(px - 100);
+                }
+            }*/
+        });
+
         ScheduledThreadPoolExecutor t = new ScheduledThreadPoolExecutor(1);
         t.scheduleWithFixedDelay(this, 0L, 50L, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public void run() {
-        ImageView chara = (ImageView) findViewById(R.id.chara);
-        float x = chara.getTranslationX();
-        chara.setTranslationX(x - 5);
+        Random mx = new Random();
+        int randomValue = mx.nextInt(1000);
+
+        ImageView mono = (ImageView) findViewById(R.id.mono);
+        float my = mono.getTranslationY();
+
+        if( my > 1000 ){
+            mono.setTranslationX(randomValue);
+            my = -100;
+        }
+        mono.setTranslationY(my + 30);
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, rect.left, rect.top, paint);
-    }
-
-    public void move(){ //キャラクターを右に1ずつ動かす
-        rect.offset(1,0);
-    }
 }

@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="上から降ってくる物を避け続けましょう\n避けるには→と←を押してください"
+        android:text="上から降ってくる物を避け続けましょう\n避けるには→と←を押してください\n頑張りましょう"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

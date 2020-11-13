@@ -14,11 +14,19 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        Button restartButton =findViewById(R.id.RestartButton);
-        restartButton.setOnClickListener(new View.OnClickListener(){
+        Button RestartButton = findViewById(R.id.RestartButton);
+        RestartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent =new Intent(ResultActivity.this,StartActivity.class);
-                    startActivity(intent);
+                Intent intent = new Intent(ResultActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button TitleButton = findViewById(R.id.TitleButton);
+        TitleButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultActivity.this, StartActivity.class);
+                startActivity(intent);
             }
         });
 
